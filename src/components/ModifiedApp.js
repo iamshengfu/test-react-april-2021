@@ -19,6 +19,8 @@ const ModifiedApp = () => {
 
   
     const search = searchValue => {
+      searchedText.current = searchValue;
+
       dispatch({
         type: "SEARCH_MOVIES_REQUEST"
       });
@@ -28,24 +30,19 @@ const ModifiedApp = () => {
           if (jsonResponse.data.Response === "True") {
             dispatch({
               type: "SEARCH_MOVIES_SUCCESS",
-              payload: jsonResponse.data.Search
+              payload: {
+                movies:jsonResponse.data.Search, 
+                totalPages:Math.ceil(jsonResponse.data.totalResults/10), 
+                pageNumber:selectedPage.current,
+                totalResults:jsonResponse.data.totalResults
+              } 
             });
-
-            setPageInfo({
-              totalPages:Math.ceil(jsonResponse.data.totalResults/10),
-              pageNumber:selectedPage.current,
-              totalResults:jsonResponse.data.totalResults
-            })
-
           } else {
             dispatch({
               type: "SEARCH_MOVIES_FAILURE",
               error: jsonResponse.data.Error
             });
 						
-            setPageInfo({
-              totalPages:1,pageNumber:1,totalResults:0
-            })
           }
         }
       );
@@ -56,6 +53,7 @@ const ModifiedApp = () => {
         return;
       }
       selectedPage.current = page;
+      console.log("go to page", page);
       search(searchedText.current);
     }
   
@@ -80,7 +78,7 @@ const ModifiedApp = () => {
           <Header text="Modified Version" />
   
           <Search search={search} />
-          <PageSelection pageNumber={pageInfo.pageNumber} totalPages={pageInfo.totalPages} totalResults={pageInfo.totalResults} goToPage={goToPage}/>
+          <PageSelection pageNumber={state.pageNumber} totalPages={state.totalPages} totalResults={state.totalResults} goToPage={goToPage}/>
           <br></br>
           <br></br>
   

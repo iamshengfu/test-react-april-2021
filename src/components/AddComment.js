@@ -7,6 +7,7 @@ const AddComment = ({submitComment}) => {
   const onSubmit = (e) => {
     e.preventDefault();
     submitComment(comment);
+    setComment("");
   }
 
   const onCommentChange = (e) => {
@@ -15,7 +16,7 @@ const AddComment = ({submitComment}) => {
 
   return (
     <form style={{"margin":"auto","width":"80%"}} onSubmit={onSubmit}>
-      <textarea style={{"height":"8em","width":"100%"}} onChange={e => onCommentChange(e)}></textarea>
+      <textarea style={{"height":"8em","width":"100%"}} onChange={e => onCommentChange(e)} value={comment}></textarea>
       <div style={{"marginBottom":"2em"}}>
         <input type="submit" value="Submit" style={{"marginLeft":"auto","display":"block"}}/>
       </div>

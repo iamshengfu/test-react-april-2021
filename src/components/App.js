@@ -38,7 +38,12 @@ const App = () => {
         if (jsonResponse.data.Response === "True") {
           dispatch({
             type: "SEARCH_MOVIES_SUCCESS",
-            payload: jsonResponse.data.Search
+            payload: {
+              movies:jsonResponse.data.Search, 
+              totalPages:1, 
+              pageNumber:1,
+              totalResults:0
+            } 
           });
         } else {
           dispatch({

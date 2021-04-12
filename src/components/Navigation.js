@@ -10,11 +10,11 @@ function Navigation() {
 	return (
 		<BrowserRouter>
 			<Navbar/>
-				<Switch>
-						<Route path="/" exact component={App}/>
-						<Route path="/modifiedapp" exact component={ModifiedApp}/>
-						<Route path="/appmock" exact component={AppMock}/>
-				</Switch>
+			<Switch>
+					<Route key="home" path="/" exact component={App}/>
+					<Route key="modifiedapp" path="/modifiedapp" exact component={ModifiedApp}/>
+					<Route key="appmock" path="/appmock" exact component={AppMock}/>
+			</Switch>
 		</BrowserRouter>
 	)
 }

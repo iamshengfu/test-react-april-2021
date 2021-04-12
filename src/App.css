@@ -129,13 +129,13 @@ input[type="submit"]:hover {
   min-width: 170px;
 }
 
-@media screen and (min-width: 694px) and (max-width: 915px) {
+/* @media screen and (min-width: 694px) and (max-width: 915px) {
   .movie {
     max-width: 33%;
   }
-}
+} */
 
-@media screen and (min-width: 652px) and (max-width: 693px) {
+/* @media screen and (min-width: 652px) and (max-width: 693px) {
   .movie {
     max-width: 50%;
   }
@@ -146,4 +146,4 @@ input[type="submit"]:hover {
     max-width: 100%;
     margin: auto;
   }
-}
+} */

@@ -1,8 +1,8 @@
   
 import React from "react";
 
-const DEFAULT_PLACEHOLDER_IMAGE =
-  "https://m.media-amazon.com/images/M/MV5BMTczNTI2ODUwOF5BMl5BanBnXkFtZTcwMTU0NTIzMw@@._V1_SX300.jpg";
+const DEFAULT_PLACEHOLDER_IMAGE = "/logo192.png";
+  //"https://m.media-amazon.com/images/M/MV5BMTczNTI2ODUwOF5BMl5BanBnXkFtZTcwMTU0NTIzMw@@._V1_SX300.jpg";
 
 
 const style = {
@@ -14,7 +14,7 @@ const Movie = ({ movie }) => {
     movie.Poster === "N/A" ? DEFAULT_PLACEHOLDER_IMAGE : movie.Poster;
   return (
     <div className="movie">
-      <h2 style={{"height":"2.5em","fontSize":"1.2em"}}>{movie.Title}</h2>
+      <h2 style={{"height":"2.5em","fontSize":"1.2em","width":"100%","display":"block"}}>{movie.Title}</h2>
       <div>
         <img
           width="200"

@@ -1,31 +1,33 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from 'react';
 
 const Search = ({ search }) => {
-  const [searchValue, setSearchValue] = useState("");
+  const [searchValue, setSearchValue] = useState('');
 
-  const handleSearchInputChanges = e => {
+  const inputRef = useRef();
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+
+  const handleSearchInputChanges = (e) => {
     setSearchValue(e.target.value);
   };
 
   const resetInputField = () => {
-    setSearchValue("");
+    setSearchValue('');
   };
 
-  const callSearchFunction = e => {
+  const callSearchFunction = (e) => {
     e.preventDefault();
     search(searchValue);
     resetInputField();
   };
 
   return (
-    <form className="search">
-      <input
-        value={searchValue}
-        onChange={handleSearchInputChanges}
-        type="text"
-      />
+    <form className='search'>
+      <input ref={inputRef} value={searchValue} onChange={handleSearchInputChanges} type='text' />
 
-      <input onClick={callSearchFunction} type="submit" value="SEARCH" />
+      <input onClick={callSearchFunction} type='submit' value='SEARCH' />
     </form>
   );
 };

@@ -1,0 +1,15 @@
+import axios from 'axios';
+import url from './url';
+
+export async function fetchMovies(searchValue, pageNumber = 1) {
+  var response = await axios(url.movieSearchUrlPrefix + searchValue + '&page=' + pageNumber);
+  if (response.data.Error) {
+    throw new Error(response.data.Error);
+  }
+  return response;
+}
+
+export async function fetchPosts() {
+  var response = await axios(url.postsUrl);
+  return response;
+}

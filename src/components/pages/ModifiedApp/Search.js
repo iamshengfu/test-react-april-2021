@@ -6,7 +6,7 @@ const Search = ({ search }) => {
   const inputRef = useRef();
 
   useEffect(() => {
-    inputRef.current.focus();
+    // inputRef.current.focus();
   }, []);
 
   const handleSearchInputChanges = (e) => {

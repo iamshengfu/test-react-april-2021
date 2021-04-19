@@ -16,8 +16,6 @@ export const movieSlice = createSlice({
   reducers: {
     SEARCH_MOVIES_REQUEST: {
       reducer: (state, action) => {
-        console.log(state);
-        console.log(action);
         state.loading = true;
         state.searchingValue = action.payload.searchValue;
         state.searchingPage = action.payload.searchingPage;

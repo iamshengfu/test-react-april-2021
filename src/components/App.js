@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import AppMock from './AppMock';
-import ModifiedApp from './ModifiedApp';
-import Navbar from './Navbar';
+import AppMock from './pages/AppMock';
+import ModifiedApp from './pages/ModifiedApp';
+import Navbar from './Reusables/Navbar';
 
 function Navigation() {
   return (

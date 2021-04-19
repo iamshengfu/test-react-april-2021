@@ -8,6 +8,7 @@
     "@testing-library/react": "^11.2.6",
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.21.1",
+    "lodash": "^4.17.21",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-redux": "^7.2.3",
@@ -18,7 +19,7 @@
   },
   "scripts": {
     "start": "concurrently \"npm run json-server\" \"npm run react\"",
-    "json-server": "json-server --watch ./dev/json-server/data.json --middlewares ./dev/json-server/middleware.js --port 3004 --prefix dev",
+    "json-server": "json-server --watch ./dev/json-server/data.json --middlewares ./dev/json-server/middleware.js --port 3004",
     "react": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

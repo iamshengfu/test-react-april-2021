@@ -1,15 +1,17 @@
 import React, { useRef } from 'react';
 import Header from './Header';
 import Movie from './Movie';
-import spinner from '../assets/ajax-loader.gif';
-import Search from './Search';
-import '../App.css';
+import spinner from '../../../assets/ajax-loader.gif';
+import '../../../App.css';
 import PageSelection from './PageSelection';
-import { movieActions } from '../reducers/movieReducer';
+import { movieActions } from '../../../store/reducers/movieReducer';
+import { searchActions } from '../../../store/reducers/searchReducer';
 import { useSelector, useDispatch } from 'react-redux';
+import SearchBar from '../../Reusables/SearchBar';
 
 const ModifiedApp = () => {
-  const state = useSelector((state) => state.movie);
+  const movieState = useSelector((state) => state.movie);
+  const searchState = useSelector((state) => state.search);
   const dispatch = useDispatch();
 
   const selectedPage = useRef(1);
@@ -17,6 +19,7 @@ const ModifiedApp = () => {
 
   const search = (searchValue) => {
     searchedText.current = searchValue;
+    dispatch(searchActions.ADD_HISTORY_REQUEST(searchValue));
     dispatch(movieActions.SEARCH_MOVIES_REQUEST(searchValue, selectedPage.current));
   };
 
@@ -28,7 +31,7 @@ const ModifiedApp = () => {
     search(searchedText.current);
   };
 
-  const { movies, errorMessage, loading } = state;
+  const { movies, errorMessage, loading } = movieState;
 
   const retrievedMovies =
     loading && !errorMessage ? (
@@ -37,8 +40,8 @@ const ModifiedApp = () => {
       <div className='errorMessage'>{errorMessage}</div>
     ) : (
       movies.map((movie, index) => (
-        <div style={{ width: '300px' }}>
-          <Movie key={`${index}-${movie.Title}`} movie={movie} />
+        <div key={`${index}-${movie.Title}`} style={{ width: '300px' }}>
+          <Movie movie={movie} />
         </div>
       ))
     );
@@ -48,11 +51,19 @@ const ModifiedApp = () => {
       <div className='m-container'>
         <Header text='Modified Version' />
 
-        <Search search={search} />
+        {/* <Search search={search} /> */}
+        <div style={{ marginTop: '2em' }}>Search:</div>
+        <SearchBar
+          search={search}
+          histories={searchState.histories.data}
+          recommendations={searchState.recommendations.data}
+          SEARCH_INPUT_CHANGED={searchActions.SEARCH_INPUT_CHANGED}
+          REMOVE_HISTORY_REQUEST={searchActions.REMOVE_HISTORY_REQUEST}
+          LOAD_HISTORY_REQUEST={searchActions.LOAD_HISTORY_REQUEST}></SearchBar>
         <PageSelection
-          pageNumber={state.pageNumber}
-          totalPages={state.totalPages}
-          totalResults={state.totalResults}
+          pageNumber={movieState.pageNumber}
+          totalPages={movieState.totalPages}
+          totalResults={movieState.totalResults}
           goToPage={goToPage}
         />
         <br></br>

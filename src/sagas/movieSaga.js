@@ -1,5 +1,5 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
-import { movieActions } from '../reducers/movieReducer';
+import { movieActions } from '../store/reducers/movieReducer';
 import { fetchMovies } from '../services/index';
 
 function* getMovies(action) {
@@ -14,6 +14,7 @@ function* getMovies(action) {
 
 function* movieSaga() {
   yield takeEvery(movieActions.SEARCH_MOVIES_REQUEST, getMovies);
+  yield;
 }
 
 export default movieSaga;

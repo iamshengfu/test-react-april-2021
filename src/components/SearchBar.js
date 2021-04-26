@@ -17,11 +17,13 @@ const SearchBar = ({
   historyCopy = historyCopy.sort((a, b) => b.time - a.time).slice(0, 10);
 
   const [searchValue, setsearchValue] = useState('');
-  const [isActive, setIsActive] = useState(false);
+  const [inputActive, setInputActive] = useState(false);
+  const [dropdownActive, setDropdownActive] = useState(false);
+
+  const [inputFocus, setInputFocus] = useState(false);
 
   useEffect(() => {
     inputRef.current.focus();
-    setIsActive(false);
     dispatch(LOAD_HISTORY_REQUEST());
   }, []);
 
@@ -58,13 +60,18 @@ const SearchBar = ({
   //----------------------------------------------------------------------------------------------
 
   const HistoryRow = ({ history }) => (
-    <div style={{ textAlign: 'left', width: '100%' }}>
+    <div style={{ padding: '7px', textAlign: 'left', width: '100%', borderBottom: '1px lightgrey solid' }}>
       <div onClick={() => searchSelected(history.text)} style={{ width: '100%', display: 'inline-block' }}>
         {'>>' + history.text}{' '}
       </div>
-      <button style={{ position: 'absolute', right: 0 }} onClick={() => onRemove(history.id)}>
+      <a
+        style={{ position: 'absolute', right: 0 }}
+        onClick={(e) => {
+          e.preventDefault();
+          onRemove(history.id);
+        }}>
         remove
-      </button>
+      </a>
     </div>
   );
 
@@ -76,7 +83,12 @@ const SearchBar = ({
     </div>
   );
   const RecommendationRow = ({ recommendation }) => (
-    <div style={{ textAlign: 'left' }} onClick={() => searchSelected(recommendation.text)}>
+    <div
+      style={{ textAlign: 'left', padding: '7px', borderBottom: '1px lightgrey solid' }}
+      onClick={() => {
+        searchSelected(recommendation.text);
+        setDropdownActive(true);
+      }}>
       {'Recommend: ' + recommendation.text}
     </div>
   );
@@ -89,23 +101,31 @@ const SearchBar = ({
   );
 
   return (
-    <div style={{ width: '100%' }}>
+    <div style={{ width: '100%', marginBottom: '2em', position: 'relative' }}>
       <form
-        style={{ backgroundColor: 'lightgray', width: '100%' }}
-        onMouseLeave={() => setIsActive(false)}
+        style={{ margin: '0.3em', width: '100%', position: 'absolute', float: 'left' }}
         onSubmit={(e) => onSubmit(e)}>
         <input
-          onClick={() => setIsActive(true)}
-          onFocus={() => setIsActive(true)}
+          onClick={() => setInputActive(true)}
+          onBlur={() => setInputActive(false)}
           ref={inputRef}
-          onChange={(e) => onInputChanged(e)}
+          onChange={(e) => {
+            onInputChanged(e);
+            setInputActive(true);
+          }}
           value={searchValue}
           type='text'
           style={{ fontSize: '1.3em', width: '100%' }}></input>
         <input type='submit' style={{ display: 'none' }} />
-        <div style={{ position: 'absolute', float: 'left', backgroundColor: 'lightgray', width: '100%' }}>
-          {isActive && <HistoryList histories={historyCopy} />}
-          {searchValue && isActive && <RecommendationList recommendations={recommendations} />}
+        <div
+          onBlur={(e) => {
+            setDropdownActive(false);
+          }}
+          onMouseDown={() => setDropdownActive(true)}
+          tabIndex='100'
+          style={{ backgroundColor: 'white', width: '100%' }}>
+          {(inputActive || dropdownActive) && <HistoryList histories={historyCopy} />}
+          {searchValue && (inputActive || dropdownActive) && <RecommendationList recommendations={recommendations} />}
         </div>
       </form>
     </div>

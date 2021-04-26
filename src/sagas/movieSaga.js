@@ -1,6 +1,6 @@
 import { call, put, takeEvery } from 'redux-saga/effects';
 import { movieActions } from '../store/reducers/movieReducer';
-import { fetchMovies } from '../services/index';
+import { fetchMovies } from '../services/movieService';
 
 function* getMovies(action) {
   try {

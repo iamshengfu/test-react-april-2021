@@ -1,13 +1,13 @@
 import React, { useRef } from 'react';
 import Header from './Header';
 import Movie from './Movie';
-import spinner from '../../../assets/ajax-loader.gif';
-import '../../../App.css';
+import spinner from '../../assets/ajax-loader.gif';
+import '../../App.css';
 import PageSelection from './PageSelection';
-import { movieActions } from '../../../store/reducers/movieReducer';
-import { searchActions } from '../../../store/reducers/searchReducer';
+import { movieActions } from '../../store/reducers/movieReducer';
+import { searchActions } from '../../store/reducers/searchReducer';
 import { useSelector, useDispatch } from 'react-redux';
-import SearchBar from '../../Reusables/SearchBar';
+import SearchBar from '../../components/SearchBar';
 
 const ModifiedApp = () => {
   const movieState = useSelector((state) => state.movie);
@@ -48,11 +48,8 @@ const ModifiedApp = () => {
 
   return (
     <div className='App'>
-      <div className='m-container'>
-        <Header text='Modified Version' />
-
-        {/* <Search search={search} /> */}
-        <div style={{ marginTop: '2em' }}>Search:</div>
+      <div>
+        {/* <Header text='Modified Version' /> */}
         <SearchBar
           search={search}
           histories={searchState.histories.data}
@@ -60,6 +57,7 @@ const ModifiedApp = () => {
           SEARCH_INPUT_CHANGED={searchActions.SEARCH_INPUT_CHANGED}
           REMOVE_HISTORY_REQUEST={searchActions.REMOVE_HISTORY_REQUEST}
           LOAD_HISTORY_REQUEST={searchActions.LOAD_HISTORY_REQUEST}></SearchBar>
+        <br></br>
         <PageSelection
           pageNumber={movieState.pageNumber}
           totalPages={movieState.totalPages}

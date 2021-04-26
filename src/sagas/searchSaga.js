@@ -1,6 +1,8 @@
 import { call, fork, put, takeEvery } from 'redux-saga/effects';
 import { searchActions } from '../store/reducers/searchReducer';
-import { fetchHistories, fetchRecommendation, deleteHisotry, addHistory } from '../services/index';
+import { fetchHistories, fetchRecommendation, deleteHisotry, addHistory } from '../services/searchService';
+
+// Saga to handle load history
 
 function* getHistories(action) {
   try {
@@ -15,7 +17,7 @@ function* getHistorySaga() {
   yield takeEvery(searchActions.LOAD_HISTORY_REQUEST, getHistories);
 }
 
-//---------------------------------------------------------------------------------------
+// Saga to handle load recommendation
 
 function* getRecommendation(action) {
   try {
@@ -38,7 +40,7 @@ function* recommendationSaga() {
   yield takeEvery(searchActions.LOAD_RECOMMENDATION_REQUEST, getRecommendation);
 }
 
-//---------------------------------------------------------------------------------------
+// Saga to add or delete history
 
 function* deleteHisotry1(action) {
   try {
@@ -51,12 +53,7 @@ function* deleteHisotry1(action) {
 
 function* addHistory1(action) {
   try {
-    var data = {
-      text: action.payload,
-      id: Date.now(),
-      time: Date.now(),
-    };
-    const response = yield call(addHistory, data);
+    const response = yield call(addHistory, action.payload);
     yield put(searchActions.ADD_HISTORY_SUCCESS(response.data));
   } catch (e) {
     console.log('add history failed');
@@ -71,7 +68,7 @@ function* addHistorySaga() {
   yield takeEvery(searchActions.ADD_HISTORY_REQUEST, addHistory1);
 }
 
-//---------------------------------------------------------------------------------------
+// Export Saga
 
 function* mainSaga() {
   yield fork(getHistorySaga);

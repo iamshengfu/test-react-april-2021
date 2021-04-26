@@ -4,7 +4,7 @@ const PageSelection = ({ totalPages, pageNumber, goToPage, totalResults }) => {
   const pageArray = Array.from('x'.repeat(totalPages)).map((item, idx) => idx + 1);
 
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center' }}>
+    <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', margin: '2em' }}>
       <h3 style={{ marginRight: '2em' }}>Total results: {totalResults}</h3>
       <h3 style={{ marginRight: '2em' }}>Total pages: {totalPages}</h3>
       <h3>Go to page:</h3>

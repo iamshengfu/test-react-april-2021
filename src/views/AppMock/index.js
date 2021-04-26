@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import AddComment from './AddComment';
 import Comments from './Comments';
-import { fetchPosts } from '../../../services';
+import { fetchPosts } from '../../services/postService';
 
 const AppMock = () => {
   const [comments, setComments] = useState([]);

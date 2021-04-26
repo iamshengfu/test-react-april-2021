@@ -33,7 +33,18 @@ export const searchSlice = createSlice({
     REMOVE_HISTORY_SUCCESS: (state, action) => {
       state.histories.data = state.histories.data.filter((item) => item.id !== action.payload);
     },
-    ADD_HISTORY_REQUEST: () => {},
+    ADD_HISTORY_REQUEST: {
+      reducer: () => {},
+      prepare: (text) => {
+        return {
+          payload: {
+            text: text,
+            id: Date.now(),
+            time: Date.now(),
+          },
+        };
+      },
+    },
     ADD_HISTORY_SUCCESS: (state, action) => {
       state.histories.data.push(action.payload);
     },
